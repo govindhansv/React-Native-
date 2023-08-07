@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -5,25 +6,27 @@ import Constants from 'expo-constants';
 import AssetExample from './components/AssetExample';
 import Cards from './components/Cards';
 import ProductCard from './components/ProductCard';
+import axios from 'axios';
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
 
-const products = [
-  {
-    title: 'Iphone 1',
-    image: 'https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-3.jpg',
-    price: 19.99,
-  },
-  {
-    title: 'Product 2',
-    image: 'https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-3.jpg',
-    price: 24.99,
-  },
-  // Add more products here
-];
 
 export default function App() {
+  const [products, setProducts] = useState([]);
+
+  
+useEffect(() => {
+  // Fetch products from the API
+  // axios.get('https://lab-software-9k7mx.ondigitalocean.app/dev/products/')
+  axios.get('https://dummyjson.com/products')
+    .then(response => {
+      console.log(response.data);
+      setProducts(response.data.products)
+    })
+    .catch(error => console.error(error));
+}, []);
+
   return (
     <View style={styles.container}>
       <Cards
@@ -34,7 +37,7 @@ export default function App() {
         title="Mountain Adventure"
         content="Hiking through breathtaking mountain trails."
       />
-       {products.map((product, index) => (
+      {products.map((product, index) => (
         <ProductCard key={index} product={product} />
       ))}
     </View>

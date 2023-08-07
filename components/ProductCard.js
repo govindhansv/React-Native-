@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ProductCard = ({ product }) => {
-  const { title, image, price } = product;
+  const { title, images, price } = product;
 
   return (
     <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={{ uri: images[0] }} style={styles.image} />
       <View style={styles.cardContent}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.price}>${price}</Text>
